@@ -1,4 +1,4 @@
-export enum RequestHeaders {
+export declare enum RequestHeaders {
     MessageId = "twitch-eventsub-message-id",
     MessageRetry = "twitch-eventsub-message-retry",
     MessageType = "twitch-eventsub-message-type",
@@ -7,14 +7,12 @@ export enum RequestHeaders {
     SubscriptionType = "twitch-eventsub-subscription-type",
     SubscriptionVersion = "twitch-eventsub-subscription-version"
 }
-
-export enum NotificationType {
+export declare enum NotificationType {
     Notification = "notification",
     WebhookCallbackVerification = "webhook_callback_verification",
     Revocation = "revocation"
 }
-
-export enum SubscriptionType {
+export declare enum SubscriptionType {
     ChannelUpdate = "channel.update",
     ChannelFollow = "channel.follow",
     ChannelSubscribe = "channel.subscribe",
@@ -61,8 +59,7 @@ export enum SubscriptionType {
     UserAuthorizationRevoke = "user.authorization.revoke",
     UserUpdate = "user.update"
 }
-
-export enum SubscriptionStatus {
+export declare enum SubscriptionStatus {
     Enabled = "enabled",
     WebhookCallbackVerificationPending = "webhook_callback_verification_pending",
     WebhookCallbackVerificationFailed = "webhook_callback_verification_failed",
@@ -79,8 +76,7 @@ export enum SubscriptionStatus {
     WebsocketNetworkTimeout = "websocket_network_timeout",
     WebsocketNetworkError = "websocket_network_error"
 }
-
-export enum StreamType {
+export declare enum StreamType {
     Live = "live",
     Playlist = "playlist",
     WatchParty = "watch_party",
@@ -88,26 +84,22 @@ export enum StreamType {
     Rerun = "rerun",
     Error = ""
 }
-
-export enum TransportMethod {
+export declare enum TransportMethod {
     Webhook = "webhook",
     Websocket = "websocket"
 }
-
-export enum UserType {
+export declare enum UserType {
     Admin = "admin",
     GlobalMod = "global_mod",
     Staff = "staff",
     Normal = ""
 }
-
-export enum BroadcasterType {
+export declare enum BroadcasterType {
     Affiliate = "affiliate",
     Partner = "partner",
     Normal = ""
 }
-
-export enum StreamFilterType {
+export declare enum StreamFilterType {
     All = "all",
     Live = "live"
 }
