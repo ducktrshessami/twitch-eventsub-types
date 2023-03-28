@@ -306,19 +306,19 @@ export type GetSubscriptionsOptions = {
     user_id?: string;
     after?: Cursor;
 };
-type ClientCredentialGrantResponse = {
+export type ClientCredentialGrantResponse = {
     access_token: string;
     expires_in: number;
     token_type: string;
 };
-type GetResourceResponse<Resource> = {
+export type GetResourceResponse<Resource> = {
     data: Array<Resource>;
 };
-type GetUsersOptions = {
+export type GetUsersOptions = {
     ids?: Array<string>;
     logins?: Array<string>;
 };
-type User = {
+export type User = {
     id: string;
     login: string;
     display_name: string;
@@ -330,7 +330,7 @@ type User = {
     email?: string;
     created_at: string;
 };
-type Channel = {
+export type Channel = {
     broadcaster_id: string;
     broadcaster_login: string;
     broadcaster_name: string;
@@ -341,7 +341,7 @@ type Channel = {
     delay: number;
     tags: Array<string>;
 };
-type GetStreamsOptions = {
+export type GetStreamsOptions = {
     userIds?: Array<string>;
     userLogins?: Array<string>;
     gameIds?: Array<string>;
@@ -351,7 +351,7 @@ type GetStreamsOptions = {
     before?: string;
     after?: string;
 };
-type Stream = {
+export type Stream = {
     id: string;
     user_id: string;
     user_login: string;
@@ -367,5 +367,5 @@ type Stream = {
     thumbnail_url: string;
     is_mature: boolean;
 };
-type GetStreamsResponse = GetResourceResponse<Stream> & PaginatedResponse;
+export type GetStreamsResponse = GetResourceResponse<Stream> & PaginatedResponse;
 export {};
