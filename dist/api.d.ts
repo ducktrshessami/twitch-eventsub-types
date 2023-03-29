@@ -10,7 +10,7 @@ export declare function authorize<T>(clientId: string, clientSecret: string, fn:
 export declare function getUsers(clientId: string, accessToken: string, options: GetUsersOptions): Promise<GetResourceResponse<User>>;
 export declare function getChannels(clientId: string, accessToken: string, ids: Array<string>): Promise<GetResourceResponse<Channel>>;
 export declare function getStreams(clientId: string, accessToken: string, { userIds, userLogins, gameIds, ...nonIterOptions }: GetStreamsOptions): Promise<GetStreamsResponse>;
-export declare function subscribe(clientId: string, accessToken: string, broadcasterId: string, callbackEndpoint: string, secret: string): Promise<void>;
+export declare function subscribe(clientId: string, accessToken: string, broadcasterId: string, callbackEndpoint: string, secret: string): Promise<CreateEventSubResponse>;
 export declare function getSubscriptions(clientId: string, accessToken: string, options?: GetSubscriptionsOptions): Promise<GetEventSubsResponse>;
 export declare function deleteSubscription(clientId: string, accessToken: string, subscriptionId: string): Promise<void>;
 export type BroadcasterTargettedCondition = {
@@ -264,14 +264,10 @@ export interface StreamOnlineCallbackVerificationBody extends StreamOnlineWebhoo
 }
 export type StreamOnlineRevocationBody = StreamOnlineWebhookBody;
 export type WebhookBody = InvalidSubscriptionWebhookBody | StreamOnlineNotificationBody | StreamOnlineCallbackVerificationBody | StreamOnlineRevocationBody;
-interface BaseSubscriptionTransport {
+interface CreatedSubscriptionTransport {
     method: `${TransportMethod}`;
     callback?: string;
-    secret?: string;
     session_id?: string;
-}
-interface CreatedSubscriptionTransport extends BaseSubscriptionTransport {
-    secret?: never;
     connected_at?: string;
 }
 interface ListedSubscriptionTransport extends CreatedSubscriptionTransport {
@@ -291,14 +287,13 @@ export interface ListedEventSubscription extends BaseEventSubscription {
     transport: ListedSubscriptionTransport;
 }
 interface BaseEventSubResponse {
-    data: Array<BaseEventSubscription>;
     total: number;
     total_cost: number;
     max_total_cost: number;
 }
-export type CreateEventSubResponse = BaseEventSubResponse;
-export interface GetEventSubsResponse extends BaseEventSubResponse, PaginatedResponse {
-    data: Array<ListedEventSubscription>;
+export interface CreateEventSubResponse extends BaseEventSubResponse, GetResourceResponse<BaseEventSubscription> {
+}
+export interface GetEventSubsResponse extends BaseEventSubResponse, PaginatedResponse, GetResourceResponse<ListedEventSubscription> {
 }
 export type GetSubscriptionsOptions = {
     status?: `${SubscriptionStatus}`;

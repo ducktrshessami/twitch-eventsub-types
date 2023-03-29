@@ -128,7 +128,10 @@ export async function subscribe(clientId, accessToken, broadcasterId, callbackEn
             }
         }
     });
-    if (res.status !== 202) {
+    if (res.status === 202) {
+        return await res.json();
+    }
+    else {
         throw new FetchError(res);
     }
 }
@@ -147,3 +150,4 @@ export async function deleteSubscription(clientId, accessToken, subscriptionId) 
         throw new FetchError(res);
     }
 }
+;
