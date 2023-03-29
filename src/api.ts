@@ -187,7 +187,7 @@ export async function subscribe(
     broadcasterId: string,
     callbackEndpoint: string,
     secret: string
-): Promise<void> {
+): Promise<CreateEventSubResponse> {
     const res = await authorizedRequest(
         clientId,
         accessToken,
@@ -206,7 +206,10 @@ export async function subscribe(
             } satisfies CreateStreamOnlineSubscriptionBody
         }
     );
-    if (res.status !== 202) {
+    if (res.status === 202) {
+        return await res.json();
+    }
+    else {
         throw new FetchError(res);
     }
 }
@@ -546,20 +549,15 @@ export type WebhookBody =
     StreamOnlineCallbackVerificationBody |
     StreamOnlineRevocationBody;
 
-interface BaseSubscriptionTransport {
-    method: `${TransportMethod}`;
-    callback?: string;
-    secret?: string;
-    session_id?: string;
-}
-interface CreateWebhookSubscriptionTransportOptions extends BaseSubscriptionTransport {
+interface CreateWebhookSubscriptionTransportOptions {
     method: `${TransportMethod.Webhook}`;
     callback: string;
     secret: string;
-    session_id?: never;
 }
-interface CreatedSubscriptionTransport extends BaseSubscriptionTransport {
-    secret?: never;
+interface CreatedSubscriptionTransport {
+    method: `${TransportMethod}`;
+    callback?: string;
+    session_id?: string;
     connected_at?: string;
 }
 interface ListedSubscriptionTransport extends CreatedSubscriptionTransport {
@@ -579,15 +577,12 @@ export interface ListedEventSubscription extends BaseEventSubscription {
     transport: ListedSubscriptionTransport;
 }
 interface BaseEventSubResponse {
-    data: Array<BaseEventSubscription>;
     total: number;
     total_cost: number;
     max_total_cost: number;
 }
-export type CreateEventSubResponse = BaseEventSubResponse;
-export interface GetEventSubsResponse extends BaseEventSubResponse, PaginatedResponse {
-    data: Array<ListedEventSubscription>;
-}
+export interface CreateEventSubResponse extends BaseEventSubResponse, GetResourceResponse<BaseEventSubscription> { };
+export interface GetEventSubsResponse extends BaseEventSubResponse, PaginatedResponse, GetResourceResponse<ListedEventSubscription> { }
 
 type AuthorizedSubscriptionRequestOptions = {
     body?: any,
