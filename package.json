@@ -4,9 +4,15 @@
   "description": "Types and utilities for Twitch EventSub",
   "type": "module",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "git@github.com:ducktrshessami/twitch-eventsub-utils.git",
   "author": "ducktrshessami",
   "license": "MIT",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs",
+    "types": "./dist/index.d.ts"
+  },
   "scripts": {
     "clean": "rm -rf dist/",
     "prebuild": "yarn clean",
