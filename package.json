@@ -14,9 +14,7 @@
     "types": "./dist/index.d.ts"
   },
   "scripts": {
-    "clean": "rm -rf dist/",
-    "prebuild": "yarn clean",
-    "build": "tsc"
+    "build": "tsup"
   },
   "devDependencies": {
     "tsup": "^6.7.0",
