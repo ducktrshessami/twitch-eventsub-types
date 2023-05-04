@@ -1,6 +1,6 @@
 {
   "name": "twitch-eventsub-utils",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Types and utilities for Twitch EventSub",
   "type": "module",
   "main": "dist/index.js",
